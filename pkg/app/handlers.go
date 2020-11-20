@@ -16,6 +16,7 @@ func DefaultHandler(gl *globals.Global) func(w http.ResponseWriter, r *http.Requ
 			if err != nil {
 				log.Print("cache error get ", err)
 				http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
+				return
 			}
 			err = gl.T.Counter.Execute(w, struct {
 				Amount int
@@ -23,6 +24,7 @@ func DefaultHandler(gl *globals.Global) func(w http.ResponseWriter, r *http.Requ
 			if err != nil {
 				log.Print("template exec ", err)
 				http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
+				return
 			}
 			return
 		default:

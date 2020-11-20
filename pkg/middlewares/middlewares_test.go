@@ -10,7 +10,7 @@ import (
 	"github.com/purusah/cxtnxbr/pkg/globals"
 )
 
-func DummyHandler(w http.ResponseWriter, r *http.Request) {}
+func DummyHandler(_ http.ResponseWriter, _ *http.Request) {}
 
 func TestCounterMiddleware(t *testing.T) {
 	url := "/api"

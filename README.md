@@ -2,6 +2,7 @@ Test project to implement uri visits counter and check default project layout
 
 Requirements:
 * `docker`
+* `make`
 
 Start:
 1. `make build` - build docker container with app

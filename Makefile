@@ -15,22 +15,23 @@ lint:
 	docker run -t --rm -v $(shell pwd):/$(PROJECT) -w /$(PROJECT) golangci/golangci-lint:$(GOLINT_VERSION) golangci-lint run -v
 
 fmt:
-	docker run -it --rm -v $(shell pwd):/$(PROJECT) -w /$(PROJECT) golang:1.15.5-alpine3.12 go fmt -x -n ./...
+	docker run -it --rm -v $(shell pwd):/$(PROJECT) -w /$(PROJECT) golang:1.15.5-alpine3.12 go fmt -x ./...
 
-run:
+run: redis
 	docker run -it --rm --name $(PROJECT) \
-		--publish $(API_PORT):$(API_PORT) \
+		--network "host" \
 		--env-file scripts/default.env \
 		$(PROJECT):latest \
 		/app
 
-test:
+test: redis
 	docker run -it --rm \
 		--name $(PROJECT)-test \
 		-v $(shell pwd):/$(PROJECT) \
 		-w /$(PROJECT) \
 		golang:1.15.5-buster \
 		go test -v -race -tags=all -coverprofile cp.out ./...
+	docker stop $(PROJECT)-redis || true
 
 # UTILS
 
@@ -40,7 +41,7 @@ redis:
 		--rm \
 		--name $(PROJECT)-redis \
 		--detach \
-		--publish $(REDIS_PORT):$(REDIS_PORT) \
+		--network "host" \
 		redis:6
 	docker exec -it $(PROJECT)-redis redis-cli set bind 0.0.0.0
 

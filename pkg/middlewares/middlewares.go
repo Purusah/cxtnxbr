@@ -18,7 +18,7 @@ func GetUriCounterKey(uri string) string {
 
 func CounterMiddleware(c Counter, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		err := c.Incr(r.Context(), GetUriCounterKey(r.RequestURI))
+		err := c.Incr(r.Context(), GetUriCounterKey(r.URL.Path))
 		next.ServeHTTP(w, r)
 		if err != nil {
 			log.Printf("counter mw inc %e", err)

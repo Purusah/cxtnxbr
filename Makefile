@@ -24,8 +24,13 @@ run:
 		$(PROJECT):latest \
 		/app
 
-test: build
-	docker run -it --rm $(PROJECT):latest go test -v -race -tags=all -coverprofile cp.out ./...
+test:
+	docker run -it --rm \
+		--name $(PROJECT)-test \
+		-v $(shell pwd):/$(PROJECT) \
+		-w /$(PROJECT) \
+		golang:1.15.5-buster \
+		go test -v -race -tags=all -coverprofile cp.out ./...
 
 # UTILS
 

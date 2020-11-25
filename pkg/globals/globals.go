@@ -1,6 +1,7 @@
 package globals
 
 import (
+	"github.com/gorilla/websocket"
 	"html/template"
 	"log"
 
@@ -13,8 +14,9 @@ type globalTemplates struct {
 }
 
 type Global struct {
-	C KVStorage
-	T globalTemplates
+	C         KVStorage
+	T         globalTemplates
+	WsUpgrade websocket.Upgrader
 }
 
 func NewCache(c config.Config) *Global {
@@ -40,7 +42,8 @@ func NewCache(c config.Config) *Global {
 	}
 
 	return &Global{
-		C: cache,
-		T: globalTemplates{Counter: t},
+		C:         cache,
+		T:         globalTemplates{Counter: t},
+		WsUpgrade: websocket.Upgrader{},
 	}
 }

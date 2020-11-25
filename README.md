@@ -12,6 +12,3 @@ Start:
 Additional commands:
 * `make test` - run test
 * refer to `Makefile`
-
-TODO:
-* Add websockets to make counter live

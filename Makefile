@@ -17,7 +17,7 @@ lint:
 fmt:
 	docker run -it --rm -v $(shell pwd):/$(PROJECT) -w /$(PROJECT) golang:1.15.5-alpine3.12 go fmt -x ./...
 
-run: redis
+run:
 	docker run -it --rm --name $(PROJECT) \
 		--network "host" \
 		--env-file scripts/default.env \

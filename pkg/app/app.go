@@ -17,6 +17,7 @@ func StartApp() {
 
 	env := gl.NewCache(conf)
 	srv := http.NewServeMux()
+	srv.HandleFunc("/ws/api/v1/counter", WsCounterHandler(env))
 	srv.Handle("/api/v1/any", mw.CounterMiddleware(env.C, http.HandlerFunc(DefaultHandler(env))))
 
 	log.Printf("start app %s", conf.App.Url)

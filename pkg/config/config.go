@@ -43,6 +43,6 @@ func GetConfig() (Config, error) {
 			Url: redisURL,
 			Db:  redisDB,
 		},
-		Templates: templatesConfig{CounterFile: "/assets/counter.gohtml"},
+		Templates: templatesConfig{CounterFile: "assets/counter.gohtml"},
 	}, nil
 }

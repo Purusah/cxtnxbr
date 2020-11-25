@@ -1,11 +1,11 @@
 package globals
 
 import (
-	"github.com/gorilla/websocket"
 	"html/template"
 	"log"
 
 	"github.com/go-redis/redis/v8"
+	"github.com/gorilla/websocket"
 	"github.com/purusah/cxtnxbr/pkg/config"
 )
 
